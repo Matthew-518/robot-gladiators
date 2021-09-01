@@ -93,45 +93,75 @@ var fightOrSkip = function() {
     }
   }
   return false;
-}
+};
 
 
 var fight = function(enemy) {
 
+  var isPlayerTurn = true;
+
+  if (Math.random() > 0.5) {
+    isPlayerTurn = false;
+  }
+
   while(playerInfo.health > 0 && enemy.health > 0) {
+    if (isPlayerTurn) {
+      
    if (fightOrSkip()) {
     // if true, leave the fight by breaking loop 
     break;
    }
   
-
-var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
+    var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
 
     enemy.health = Math.max(0, enemy.health - damage);
     console.log(
-      playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining "
+      playerInfo.name +
+       " attacked " + 
+       enemy.name +
+       ". " +
+       enemy.name +
+       " now has " + 
+       enemy.health +
+       " health remaining "
     );
+
     //check enemy health
     if (enemy.health <= 0) {
-        window.alert(enemy.name + " has died ");
-        break;
-    }
-    else {
+        window.alert(enemy.name + " has died!");
+
+        //award player money for winning
+        playerInfo.money = playerInfo.money + 20;
+
+      break;
+    } else {
         window.alert(enemy.name + " still has " + enemy.health + " health left ");
     }
     // Subtract the value of `enemyAttack` from the value of `playerHealth` and use that result to update the value in the `playerHealth` variable.
-var damage = randomNumber(enemy.attack - 3, enemy.attack);
+  } else {
+    var damage = randomNumber(enemy.attack - 3, enemy.attack);
 
-playerInfo.health = Math.max(0, playerInfo.health - damage);
+  playerInfo.health = Math.max(0, playerInfo.health - damage);
     console.log (
-    enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining "
+    enemy.name +
+     " attacked " + 
+     playerInfo.name + 
+     ". " + 
+     playerInfo.name +
+      " now has " + 
+      playerInfo.health + 
+      " health remaining "
     );
+
     if (playerInfo.health <=0) {
-        window.alert(playerInfo.name + " has died ");
+        window.alert(playerInfo.name + " has died!");
         break;
-    }else {
+      } else {
         window.alert(playerInfo.name + " still has " + playerInfo.health + " health left ");
     } 
+  }
+  //switch turn order for next round
+  isPlayerTurn = !isPlayerTurn;
   }
 };
 
@@ -140,17 +170,24 @@ var startGame = function() {
         playerInfo.reset();
      
 for (var i = 0; i < enemyInfo.length; i++) {
+
+
     if (playerInfo.health > 0) {
-        // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
+       // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
         window.alert("Welcome to Robot Gladiators! Round " + (i + 1) );
         // pick new enemy to fight based on the index of the enemyNames array
         var pickedEnemyObj = enemyInfo[i];
+
         // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
         pickedEnemyObj.health= randomNumber(40, 60);
-        //debugger
+
+       
+      
         // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
         fight(pickedEnemyObj);
+
         if (playerInfo.health > 0 && i < enemyInfo.length - 1) {
+
             var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
 
             if (storeConfirm) {
