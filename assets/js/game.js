@@ -12,7 +12,13 @@ var playerMoney = 10;
 
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
-var enemyAttack = 12;
+var enemyAttack = 12; 
+
+var randomNumber = function(min, max) {
+  var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+  return value;
+};
 
 var fight = function(enemyName) {
   while(playerHealth > 0 && enemyHealth > 0) {
@@ -23,15 +29,15 @@ var fight = function(enemyName) {
 
         if (confirmSkip) {
             window.alert(playerName + " has decided to skip this fight. Goodbye! ");
-            playerMoney = playerMoney -10;
+            playerMoney = Math.max(0, playerMoney - 10);
             console.log("playerMoney", playerMoney);
             break;
         }
     }
-    //if (promptFight === "fight" || promptFight === "FIGHT") {
-    
-    enemyHealth = enemyHealth - playerAttack;
-    // Log a resulting message to the console so we know that it worked.
+    //if (promptFight === "fight" || promptFight === "FIGHT") 
+var damage = randomNumber(playerAttack - 3, playerAttack);
+
+    enemyHealth = Math.max(0, enemyHealth - damage);
     console.log(
     playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining "
     );
@@ -44,8 +50,9 @@ var fight = function(enemyName) {
         window.alert(enemyName + " still has " + enemyHealth + " health left ");
     }
     // Subtract the value of `enemyAttack` from the value of `playerHealth` and use that result to update the value in the `playerHealth` variable.
-    playerHealth =  playerHealth - enemyAttack;
-    // Log a resulting message to the console so we know that it worked.
+var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
+    playerHealth = Math.max(0, playerHealth - damage);
     console.log (
     enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining "
     );
@@ -72,7 +79,7 @@ for (var i = 0; i < enemyNames.length; i++) {
         // pick new enemy to fight based on the index of the enemyNames array
         var pickedEnemyName = enemyNames[i];
         // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
-        enemyHealth = 50;
+        enemyHealth = randomNumber(40, 60);
         //debugger
         // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
         fight(pickedEnemyName);
@@ -84,16 +91,14 @@ for (var i = 0; i < enemyNames.length; i++) {
             }
        }
     }
-
-
-   else {
+   
+    else {
        window.alert("You have lost your robot in battle! Game Over!");
        break;
    }
 }
 endGame();
 };
-
 
 var endGame = function() {
     window.alert("The game has now ended. Let's see how you did!")
