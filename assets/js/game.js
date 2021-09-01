@@ -187,10 +187,6 @@ var shop = function() {
       }
 };
 
-
-
-
-
 startGame();
 
 
