@@ -86,7 +86,7 @@ var fightOrSkip = function() {
     //if yes (true) leave fight
     if (confirmSkip) {
       window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
-      playerInfo.playerMoney = playerInfo.money - 10;
+      playerInfo.money = Math.max(0, playerInfo.money - 10);
       
       //return true if player wants to leave
       return true;
@@ -116,14 +116,7 @@ var fight = function(enemy) {
 
     enemy.health = Math.max(0, enemy.health - damage);
     console.log(
-      playerInfo.name +
-       " attacked " + 
-       enemy.name +
-       ". " +
-       enemy.name +
-       " now has " + 
-       enemy.health +
-       " health remaining "
+      playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health +" health remaining. "
     );
 
     //check enemy health
@@ -142,15 +135,8 @@ var fight = function(enemy) {
     var damage = randomNumber(enemy.attack - 3, enemy.attack);
 
   playerInfo.health = Math.max(0, playerInfo.health - damage);
-    console.log (
-    enemy.name +
-     " attacked " + 
-     playerInfo.name + 
-     ". " + 
-     playerInfo.name +
-      " now has " + 
-      playerInfo.health + 
-      " health remaining "
+    console.log(
+    enemy.name + " attacked " + playerInfo.name + ". " +  playerInfo.name + " now has " + playerInfo.health + " health remaining. "
     );
 
     if (playerInfo.health <=0) {
